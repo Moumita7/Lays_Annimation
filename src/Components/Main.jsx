@@ -8,6 +8,7 @@ import lemon from "../assets/lemon.jpg"
 import lemonl from "../assets/lemonl.png"
 import tometo from "../assets/tometo.jpg"
 import tometol from "../assets/tometol.png"
+import { useSpring, animated } from 'react-spring';
 import './slider.css';
 
 
@@ -21,7 +22,9 @@ const slides = [
     imgSrc: potato,
     name: "LAY'S® Classic Potato Chips",
     description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit...',
-    imgl:potatol
+    imgl:potatol,
+    text:'[#FCCF34]'
+  
   },
   // {
   //   id: 2,
@@ -38,7 +41,9 @@ const slides = [
     imgSrc: lemon,
     name: "LAY'S® Limón Flavored Potato Chips",
     description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit...',
-    imgl:lemonl
+    imgl:lemonl,
+    text:'[#B6D100]'
+
 
   },
 
@@ -48,7 +53,8 @@ const slides = [
     imgSrc: tometo,
     name:"SABRITAS® Adobadas Flavored Potato Chips",
     description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit...',
-    imgl:tometol
+    imgl:tometol,
+    text:'[#FF1A1D]'
 
   },
 
@@ -57,7 +63,19 @@ const slides = [
 const Main = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isSecondDivVisible, setSecondDivVisibility] = useState(false);
-
+  const inlineStyle = {
+    fontFamily:" cursive", // Replace with your desired font family
+    fontSize: '20px', // You can also set other font-related styles here
+    fontWeight: 'bold',
+   
+    // Add more styles as needed
+  };
+  const animationProps = useSpring({
+    opacity: 1,
+    from: { opacity: 0 },
+    config: { duration: 1000 },
+  });
+ 
   useEffect(() => {
     const interval = setInterval(() => {
       // Increment the current slide index, and loop back to the first slide if at the end
@@ -99,9 +117,13 @@ const Main = () => {
             <img className="w-[100%]" src={slide.imgl} alt="" />
           </div> */}
           <div
-            className={`w-[30%] h-[70vh]  flex flex-col items-center  ${isSecondDivVisible ? 'visible' : 'hidden'} ${isSecondDivVisible ? 'w-[40%]' : '[40%]'}`}
+            className={`w-[30%] h-[70vh]  flex flex-col items-center  ${isSecondDivVisible ? 'visible' : 'hidden'} ${isSecondDivVisible ? 'w-[35%]' : '[35%]'}`}
           >
-          <p className={`text-2xl font-semibold text-${slide.bgColor}`}>{slide.name}</p>
+           <animated.div style={{ ...inlineStyle, ...animationProps }}>
+
+          <p  >{slide.name}</p>
+           </animated.div>
+
             <img className="w-[100%] rounded-[50%]"  src={slide.imgl} alt="" />
           </div>
         </div>
